@@ -389,6 +389,31 @@ $ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -v "${PWD}":/noteboo
 
 ---
 
+# TensorFlowコンテナの起動
+
+## TensorFlowイメージのpull(ダウンロード)
+```sh
+$ docker pull tensorflow/tensorflow
+```
+
+## ダウンロードしたイメージをコンテナ化
+
+```sh
+# コンテナと共有したいディレクトリを作成
+$ mkdir -p /c/Users/hytssk/docker/workspace
+$ cd /c/Users/hytssk/docker/workspace
+# コンテナの起動
+$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -v "${PWD}":/notebooks/host tensorflow/tensorflow
+```
+
+- 8888番ポートは[jupyter]用のポート番号
+- 6006番ポートはTensorBoard用のポート番号
+    - TensorBoardはコンテナ内で手動で起動する必要がある
+- 上記ポート番号を使ってWebアプリケーションを利用することが可能になる
+
+
+---
+
 # TensorFlowを利用した<br/>プログラム実行
 ## ターミナルを利用する方法
 ```bash
@@ -617,7 +642,7 @@ CMD ["sudo", "/usr/sbin/sshd", "-D"]
 $ docker run -d --name mytensorflow -p 10022:22 -p 8889:8888 -p 6007:6006 -v /c/Users/hytssk/docker/workspace:/notebooks/host hytssk/tensorflow:ssh
 ```
 .center[
-作成したコンテナへのSSH接続設定
+作成したコンテナへのSSH接続設定  
 <img src="./images/mobaxterm_x11_ssh.png" height="337px">  
 ]
 
