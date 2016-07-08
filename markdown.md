@@ -4,14 +4,16 @@ class: center, middle
 <br/>
 .subtitle[気軽に始めるTensorFlow]
 <br/>
-<br/>
-<br/>
+.center[
+![QRコード](./images/qr_code.gif)
+]
 <br/>
 .author[佐々木 勇人]
 .institution[横浜国立大学 濱上研究室]
 
 
 .date[2016年7月9日(土)]
+
 
 ---
 class: center
@@ -25,9 +27,10 @@ class: center
 
 # Dockerとは？
 
-- 名前は聞いたことがある &rarr; .red[最近勢い増]
+.large[
 - VirtualBoxとは何が違う？ &rarr; .red[**コンテナ**技術]
 - 結局何ができる？ &rarr; .red[**移植性**の高い環境構築]
+]
 
 
 <br/>
@@ -41,17 +44,7 @@ class: center
 ]
 
 ---
-
-# Dockerの勢い
-
-<br/>
-.center[
-![googleトレンド](./images/google_trend_small.png)
-]
-
----
 # VirtualBoxとの違い
-## 環境を論理的に区切るための手段が異なる
 
 .left-column[
 ![コンテナ技術](./images/container_small.png)
@@ -117,8 +110,6 @@ class: center
 - 大抵の場合，実験用コードでは何かしらのライブラリを利用しているはず
 - 再現実験のためにライブラリをいちいちインストールする必要がない
 <br/>
-<br/>
-<br/>
 
 .center[
 .border[
@@ -138,34 +129,27 @@ class: center
     - ライブラリやOS, 設定ファイルなど
 
 ## イメージの取得方法
-2種類の方法が存在する
-1. イメージをダウンロードしてくる
+- イメージをダウンロードしてくる
     - [Docker Hub](https://hub.docker.com/)というイメージ共有サイトを利用する
-2. イメージを作成する
+- イメージを作成する
     - コンテナを直接編集する方法
     - Dockerfileを利用した方法
 
 ---
 # Dockerイメージ
 ## イメージのダウンロード - pullコマンド -
-
 [Docker Hub](https://hub.docker.com/)からダウンロードできる
-
 ```sh
 # Docker Hubから'python numpy'というキーワードで検索
 $ docker search 'numpy'
 NAME                  DESCRIPTION                          STARS     OFFICIAL   AUTOMATED
 ruimashita/numpy      ubuntu 14.04 python 2.7 numpy        0                    [OK]
-patavee/numpy         Dockerfile for NumPy (Python 2.7).   0                    [OK]
 halo9pan/cuda-numpy   Python numpy with CUDA support       0                    [OK]
-
 # 上記のvimagick/pythonをダウンロード
 $ docker pull halo9pan/cuda-numpy
-
 # ダウンロードしたイメージの確認
 $ docker images
 ```
-
 - *search*コマンドで，イメージの検索
 - *pull*コマンドで，イメージのダウンロード
 - *images*コマンドで，ローカルにあるイメージを一覧表示
@@ -179,14 +163,11 @@ $ docker images
 # コンテナの起動
 $ docker run -itd --name ub ubuntu bash
 $ docker exec -it ub bash
-```
-```sh
+
 # コンテナ内で環境構築
-$ sudo apt-get update
-$ sudo apt-get install -y python2.7
+$ sudo apt-get update && sudo apt-get install -y python2.7
 $ exit
-```
-```sh
+
 # ubコンテナからhytssk/python:2.7というイメージを作成
 $ docker ps
 CONTAINER ID   IMAGE    COMMAND   CREATED         STATUS         PORTS   NAMES
@@ -206,9 +187,6 @@ CONTAINER ID   IMAGE    COMMAND   CREATED         STATUS         PORTS   NAMES
 ```sh
 # Dockerfileを編集
 $ vi Dockerfile
-```
-
-```Dockerfile
 # Dockerfile
 FROM ubuntu
 MAINTAINER Hayato Sasaki <abc@mail.com>
@@ -221,14 +199,12 @@ Dockerfile
 *$ docker build -t hytssk/python:2.7 .
 ```
 
-- *build*コマンドで指定ディレクトリ内に存在するDockerfileからイメージを作成
+- *build*コマンドでDockerfileからイメージを作成
 
 .center[
 .border[
-.big[
 環境の構成をコード化できる<br/>
 Dockerfileを利用したイメージ生成のほうが一般的
-]
 ]
 ]
 
@@ -237,25 +213,12 @@ Dockerfileを利用したイメージ生成のほうが一般的
 
 .left-column.g8.center[
 ## 構築時
-.mermaid[
-graph TD
-subgraph 
-    B["<em>Dockerfileを記述</em>"]
-    B-->C["<em>Dockerfileからイメージを作成</em>"]
-    C-->D["<em>イメージをpush\(アップロード\)</em>"]
-end
-]
+![docker構築時](./images/docker_construction.png)
 <br/>
 ]
 .right-column.g8.center[
 ## 利用時
-.mermaid[
-graph TD
-subgraph 
-    A[<em>イメージをpull</em>]-->B[<em>イメージからコンテナを作成</em>]
-    B-->C[<em>コンテナ内で開発</em>]
-end
-]
+![docker構築時](./images/docker_utilization.png)
 <br/>
 <br/>
 ]
@@ -308,8 +271,7 @@ Login Succeeded
 4. GUIアプリケーション(matplotlibなど)の実行を確認
 ---
 
-# DockerでTensorFlowを<br/>利用する利点
-
+# Docker+TensorFlowの利点
 - Windowsではインストール方法が提供されていない
     - 基本的には仮想環境でLinuxを動かす必要がある
 - TensorFlowのバージョンアップに対応しやすい
@@ -335,23 +297,21 @@ class: center, middle
 
 .big[&rarr; apt等のパッケージマネージャからインストール]
 
-### Macの場合<br/>&emsp;&emsp;[OS X 10.10.3 以降のOS, Extended Page Tables搭載マシン]
+### Macの場合[Extended Page Tables搭載マシン]<br/>&emsp;&emsp;[OS X 10.10.3 以降のOS]
 
-.big[&rarr; Docker for Mac]
+.large[&rarr; Docker for Mac]
 
-### Windowsの場合<br/>&emsp;&emsp;[Hyper-Vを利用<br/>&emsp;&emsp;(Windows 8以降, Pro/Education/Enterpriseエディション)]
+### Windowsの場合[Hyper-V]<br/>&emsp;&emsp;[Windows 8以降, Pro/Education/Enterpriseエディション]
 
-.big[&rarr; Docker for Windows]
+.large[&rarr; Docker for Windows]
 
 ### 上記以外
 
-.big[&rarr; **Docker ToolBox**]
+.large[&rarr; **Docker ToolBox**]
 
 .center[
 .border[
-.big[
 今回はDocker ToolBoxをインストール
-]
 ]
 ]
 
@@ -406,7 +366,7 @@ $ python test.py
 
 - execコマンドによりtensorflowコンテナのターミナルに接続
 - コンテナ内でpythonプログラムを実行
-- コードはWindows側のC:\\\\Users\hytssk\docker\workspace\test.pyを<br/>好みのエディタで編集
+- コードはWindows側の`C:\\Users\hytssk\docker\workspace\test.py`を好みのエディタで編集
 
 ---
 

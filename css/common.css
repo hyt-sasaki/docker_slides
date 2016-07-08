@@ -19,7 +19,7 @@ h3 {
   padding-left: 0.2em;
   border-bottom: solid 2px #ccc;
 }
-.remark-slide-content h1 { font-size: 3em; text-align: center; }
+.remark-slide-content h1 { font-size: 2.5em; text-align: center; }
 .remark-slide-content h2 { font-size: 1.5em; }
 .remark-slide-content h3 { font-size: 1.2em; }
 .footnote {
@@ -31,7 +31,7 @@ li p { line-height: 1.25em; font-size: 1.1em}
 .blue { color: blue; }
 .huge { font-size: 2em; }
 .big { font-size: 1.5em; }
-.large { font-size: 1.125em; }
+.large { font-size: 1.1em; }
 a, a > code {
   color: rgb(249, 38, 114);
   text-decoration: none;
@@ -42,7 +42,7 @@ code {
   background: #e7e8e2;
   border-radius: 5px;
 }
-.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; font-size:1.02em}
+.remark-code, .remark-inline-code { font-family: Consolas, 'Courier New', Courier, Monaco, monospace; font-size:1.00em}
 .pull-left {
   float: left;
   width: 47%;
@@ -140,6 +140,7 @@ code {
 .border {
   border: 1px solid gray;
   padding: 0.5em;
+  display: inline-block;
 }
 
 /* for sample.md */
