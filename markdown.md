@@ -704,13 +704,15 @@ matplotlibを使った<br/>GUIアプリケーションの実行を確認
 
 ```sh
 # boot2docker上で操作
-$ git clone https://github.com/hyt-sasaki/docker-slides.git
-$ cd docker-slides
+$ git clone https://github.com/hyt-sasaki/docker_slides.git
+$ cd docker_slides
 $ git checkout master
 # TensorFlowのイメージ生成
 $ docker build -t mytensorflow dockerfiles/TensorFlow
-$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes:/home/developer/notebooks/host mytensorflow
+$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes/TensorFlow:/home/developer/notebooks/host mytensorflow
+# TensorFlowコンテナのターミナルに接続
 $ docker exec -it mytensorflow bash
+# もしくはMobaXtermでSSH接続
 ```
 ```sh
 # TensorBoard用ログファイルを生成プログラムを実行
@@ -828,12 +830,12 @@ $ git checkout master
 ```sh
 # TensorFlowのイメージ生成
 $ docker build -t mytensorflow dockerfiles/TensorFlow
-$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes:/home/developer/notebooks/host mytensorflow
+$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes/TensorFlow:/home/developer/notebooks/host mytensorflow
 ```
 ```sh
 # Python+OpenCVのイメージ生成
 $ docker build -t myopencv dockerfiles/OpenCV
-$ docker run -d --name opencv -p 10023:22 -v "${PWD}"/testcodes:/home/developer/host myopencv
+$ docker run -d --name opencv -p 10023:22 -v "${PWD}"/testcodes/OpenCV:/home/developer/host myopencv
 ```
 
 詳しくは[README.md](https://github.com/hyt-sasaki/docker_slides/blob/88df76e8546a3c2552e05bff5d3a7a01f88bb7d1/README.md)を参照
