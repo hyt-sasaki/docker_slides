@@ -822,7 +822,7 @@ return cross_entropy
 ```sh
 # boot2docker上で操作
 $ git clone https://github.com/hyt-sasaki/docker_slides.git
-$ cd docker-slides
+$ cd docker_slides
 $ git checkout master
 ```
 ```sh
