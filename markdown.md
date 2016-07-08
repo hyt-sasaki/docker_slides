@@ -29,6 +29,7 @@ class: center
 
 .large[
 - VirtualBoxとは何が違う？ &rarr; .red[**コンテナ**技術]
+- 
 - 結局何ができる？ &rarr; .red[**移植性**の高い環境構築]
 ]
 
@@ -324,6 +325,12 @@ class: center, middle
 2. インストーラを起動し，指示にしたがってインストール
 3. Docker Quickstart Terminalを起動
 
+.center[
+<img src="./images/docker_terminal.png" width="550px">
+]
+
+詳しくは[Qiitaの記事](http://qiita.com/hyt-sasaki/items/8f8312e277d1a4815ab6)参照
+
 ---
 
 # TensorFlowコンテナの起動
@@ -378,11 +385,9 @@ $ python test.py
 import tensorflow as tf
 # グラフの定義
 a = tf.constant(
-    [[1, 2], [3, 4]],
-    name='a')
+    [[1, 2], [3, 4]], name='a')
 b = tf.constant(
-    [[5, 6], [7, 8]], 
-    name='b')
+    [[5, 6], [7, 8]], name='b')
 c = a + b
 # グラフの計算
 with tf.Session() as sess:
