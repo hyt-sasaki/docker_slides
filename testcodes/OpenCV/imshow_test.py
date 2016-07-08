@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import cv2
 
-img = cv2.imread('./Lenna.bmp', cv2.IMREAD_GRAY_SCALE)
+img = cv2.imread('./Lenna.jpg', cv2.IMREAD_GRAY_SCALE)
 
 detector = cv2.FeatureDetector_create('FAST')
 keypoints = detector.detect(img)
