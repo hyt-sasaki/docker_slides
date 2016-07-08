@@ -15,11 +15,35 @@ class: center, middle
 
 
 ---
-class: center, middle
+class: center
 
 <img src="./images/qr_img.png" width="550px">
 
-.big[https://hyt-sasaki.github.io/docker_slides/]
+.huge[https://hyt-sasaki.github.io/docker_slides/]
+
+---
+
+# 自己紹介
+- 濱上研究室M2 佐々木勇人
+- GitHubアカウント [@hyt-sasaki](https://github.com/hyt-sasaki)
+- 最近Qiita始めました [@hyt-sasaki](http://qiita.com/hyt-sasaki)
+- 研究内容
+    - 全方位動画像を用いた自己位置推定
+    - マルチモーダル深層学習
+
+.left-column[
+<br/>
+<img src="./images/self_localization.png" width="360px">
+.center[
+*自己位置推定*
+]
+]
+.right-column[
+<img src="./images/weakly_shared.png" width="360px">
+.center[
+*マルチモーダル深層学習*
+]
+]
 
 
 ---
@@ -37,6 +61,7 @@ class: center, middle
 .large[
 - WindowsでTensorFlow実行環境を構築
 - DockerでGUIを利用可能なターミナル環境を構築
+- TensorBoardによるプログラムの可視化
 ]
 
 ---
@@ -48,6 +73,7 @@ class: center, middle
 - *データフローグラフ*により, 数学的な処理を記述
     - ノードが数学的な処理(内積など)を表す
     - エッジがデータ(テンソル)を表す
+    - **TensorBoard**により，グラフを可視化できる
 - pythonやc++のAPIが利用可能
 - **基本的にLinuxもしくはMacで動作**
 
@@ -676,16 +702,138 @@ matplotlibを使った<br/>GUIアプリケーションの実行を確認
 
 # TensorBoardを利用した<br/>プログラムの可視化
 
+```sh
+# boot2docker上で操作
+$ git clone https://github.com/hyt-sasaki/docker-slides.git
+$ cd docker-slides
+$ git checkout master
+# TensorFlowのイメージ生成
+$ docker build -t mytensorflow dockerfiles/TensorFlow
+$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes:/home/developer/notebooks/host mytensorflow
+$ docker exec -it mytensorflow bash
+```
+```sh
+# TensorBoard用ログファイルを生成プログラムを実行
+$ cd notebooks/host
+$ python tensorboard_test.py
+$ tensorboard --logdir=/tmp/mnist_logs
+```
+
+tensorboard起動後, http://192.168.99.100:6006 に接続
+
+---
+
+# TensorBoardを利用した<br/>プログラムの可視化
+.left-column[
+<br/>
+<img src="./images/tensorboard_graph.png" height="240px">  
+.center[
+*グラフ表示*
+]
+]
+.right-column[
+<br/>
+<img src="./images/tensorboard_scalar.png" height="240px">  
+.center[
+*スカラー値の記録*
+]
+]
+
+
+---
+
+# TensorBoardを利用した<br/>プログラムの可視化
+[tensorboard_test.py](https://github.com/hyt-sasaki/docker_slides/blob/master/testcodes/TensorFlow/tensorboard_test.py)
+
+```python
+# tensorboard_test.py L9 ~ L13
+            y = tf.nn.softmax(tf.matmul(input_placeholder, W) + b)
+            # Variableのヒストグラムを作成
+*           tf.histogram_summary('Weights', W)
+*           tf.histogram_summary('bias', b)
+*           tf.histogram_summary('outputs', y)
+```
+```python
+# tensorboard_test.py L18 ~ L23
+def loss(output, labels_placeholder):
+    with tf.name_scope('cross_entropy'):
+        cross_entropy =\
+            -tf.reduce_sum(labels_placeholder * tf.log(output))
+        # ノード(cross_entropy)の出力値を記録
+*       tf.scalar_summary('cross entropy', cross_entropy)
+return cross_entropy
+```
+
+---
+
+# TensorBoardを利用した<br/>プログラムの可視化
+[tensorboard_test.py](https://github.com/hyt-sasaki/docker_slides/blob/master/testcodes/TensorFlow/tensorboard_test.py)
+
+```python
+# tensorboard_test.py L57 ~ L66
+ with tf.Session() as sess:
+        output = inference(inputs_ph)
+        loss = loss(output, labels_ph)
+        acc = accuracy(labels_ph, output)
+        training_op = training(loss, FLAGS.learning_rate)
+        # 全サマリーノードを一つのノードに統合
+*       merged = tf.merge_all_summaries()
+        # サマリーデータをファイルに書き込むためのライタを作成
+*       writer = tf.train.SummaryWriter('/tmp/mnist_logs', sess.graph)
+        init = tf.initialize_all_variables()
+ sess.run(init)
+```
+
+詳しくは[公式ドキュメント](https://www.tensorflow.org/versions/r0.7/how_tos/summaries_and_tensorboard/index.html)を参照
+
 ---
 
 # まとめ
 
+.big[
+
+- TensorFlowとDockerの概要を説明した
+
+- Dockerを用いたTensorFlowの環境構築について説明した
+
+- 説明に出てきたプログラムやDockerfileは<br/>[ここ](https://github.com/hyt-sasaki/docker_slides)からダウンロードできる
+
+- 詳しくは後ろのページ(_各種データ_のページ)を参照
+
+]
+
 ---
 
 # 参考文献/参考サイト
+- WINGSプロジェクト阿佐志保 (2015) 『プログラマのためのDocker教科書： インフラの基礎知識&コードによる環境構築の自動化』 株式会社翔泳社
+- [Docker公式サイト](https://www.docker.com/)
+- [TensorFlow公式サイト](https://www.tensorflow.org/)
+- [jupyter公式サイト](http://jupyter.org/)
+- [DockerコンテナのLinux GUIアプリをWindowsで起動する](http://qiita.com/fireowl11/items/7a22510bc8951342d031)
 
 ---
 
 # 各種データ
+[GitHubページ](https://github.com/hyt-sasaki/docker_slides)
+からDockerfile等をダウンロードできる
+- TensorFlow + matplotlibのDockerfile
+- Python + OpenCVのDockerfile
 
----
+```sh
+# boot2docker上で操作
+$ git clone https://github.com/hyt-sasaki/docker-slides.git
+$ cd docker-slides
+$ git checkout master
+```
+```sh
+# TensorFlowのイメージ生成
+$ docker build -t mytensorflow dockerfiles/TensorFlow
+$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -p 10022:22 -v "${PWD}"/testcodes:/home/developer/notebooks/host mytensorflow
+```
+```sh
+# Python+OpenCVのイメージ生成
+$ docker build -t myopencv dockerfiles/OpenCV
+$ docker run -d --name opencv -p 10023:22 -v "${PWD}"/testcodes:/home/developer/host myopencv
+```
+
+詳しくは[README.md](https://github.com/hyt-sasaki/docker_slides/blob/88df76e8546a3c2552e05bff5d3a7a01f88bb7d1/README.md)を参照
