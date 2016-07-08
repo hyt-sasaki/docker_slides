@@ -4,9 +4,8 @@ class: center, middle
 <br/>
 .subtitle[気軽に始めるTensorFlow]
 <br/>
-.center[
-![QRコード](./images/qr_code.gif)
-]
+<br/>
+<br/>
 <br/>
 .author[佐々木 勇人]
 .institution[横浜国立大学 濱上研究室]
@@ -16,26 +15,58 @@ class: center, middle
 
 
 ---
-class: center
-# 自己紹介
+class: center, middle
+
+<img src="./images/qr_img.png" width="550px">
+
+.big[https://hyt-sasaki.github.io/docker_slides/]
+
 
 ---
-
-# TensorFlowとは？
-
----
-
-# Dockerとは？
-
+# 発表の流れ
+## 前半
+.big[TensorFlow/Dockerについて]
 .large[
-- VirtualBoxとは何が違う？ &rarr; .red[**コンテナ**技術]
-- 
-- 結局何ができる？ &rarr; .red[**移植性**の高い環境構築]
+- Dockerについての説明がメイン
+    - 仮想化技術について
+    - Dockerイメージについて
 ]
 
+## 後半
+.big[Dockerを利用した研究開発環境の構築]
+.large[
+- WindowsでTensorFlow実行環境を構築
+- DockerでGUIを利用可能なターミナル環境を構築
+]
 
-<br/>
-<br/>
+---
+
+# [TensorFlow](https://www.tensorflow.org/)とは？
+
+- Googleが開発したオープンソースライブラリ
+- *深層学習*を行うライブラリとして有名
+- *データフローグラフ*により, 数学的な処理を記述
+    - ノードが数学的な処理(内積など)を表す
+    - エッジがデータ(テンソル)を表す
+- pythonやc++のAPIが利用可能
+- **基本的にLinuxもしくはMacで動作**
+
+.center[
+![tensorflow-logo](./images/tensorflow-logo.png)  
+.small[TensorFlow, the TensorFlow logo and any related marks are trademarks of Google Inc.]
+]
+
+---
+
+# [Docker](https://www.docker.com/)とは？
+
+### **コンテナ型**の仮想化を行うオープンソースソフトウェア
+
+## VirtualBoxとは何が違う？
+.red[VirtualBoxはホスト型の仮想化]
+## 結局何ができる？
+.red[**移植性**の高い環境構築]
+
 
 .left-column[
 ![dockerロゴ](./images/small_v.png)
@@ -274,10 +305,10 @@ Login Succeeded
 
 # Docker+TensorFlowの利点
 - Windowsではインストール方法が提供されていない
-    - 基本的には仮想環境でLinuxを動かす必要がある
+    - 基本的には*仮想環境*でLinuxを動かす必要がある
 - TensorFlowのバージョンアップに対応しやすい
-    - TensorFlowはオープンソースで開発されている<br/>*&rarr;* 開発ペースが早い
-    - 新旧両方のバージョンのコンテナを作成することで<br/>スムーズに移行ができる
+    - TensorFlowはオープンソースで開発されている<br/>*&rarr;* **開発ペースが早い**
+    - 新旧両方のバージョンのコンテナを作成することで<br/>**スムーズに移行ができる**
 
 .center[
 ![バージョン移行](./images/update.png)
@@ -326,7 +357,7 @@ class: center, middle
 3. Docker Quickstart Terminalを起動
 
 .center[
-<img src="./images/docker_terminal.png" width="550px">
+<img src="./images/docker_terminal.png" width="530px">
 ]
 
 詳しくは[Qiitaの記事](http://qiita.com/hyt-sasaki/items/8f8312e277d1a4815ab6)参照
@@ -373,7 +404,7 @@ $ python test.py
 
 - execコマンドによりtensorflowコンテナのターミナルに接続
 - コンテナ内でpythonプログラムを実行
-- コードはWindows側の`C:\\Users\hytssk\docker\workspace\test.py`を好みのエディタで編集
+- コードはWindows側の`C:¥¥Users¥hytssk¥docker¥workspace¥test.py`を好みのエディタで編集
 
 ---
 
@@ -479,22 +510,142 @@ class: center, middle
 ---
 
 # MobaXtermの<br/>インストール
-## MobaXtermとは
+## [MobaXterm](http://mobaxterm.mobatek.net/)とは
+
+> Enhanced terminal for Windows with X11 server, tabbed SSH client, network tools and much more
+
+- SSH接続が可能なターミナル
+- **X11フォワーディング**によりサーバ側の**GUIアプリ**を起動可能
 
 ## MobaXtermのダウンロード/インストール
+- [公式サイト](http://mobaxterm.mobatek.net/MobaXterm_Setup_9.1.msi)からインストーラをダウンロード
+- 基本的に, インストーラの指示に従えばよい
+
+---
+
+# MobaXtermで<br/>boot2dockerに接続
+## Docker Quickstart Terminalを起動
+
+.center[
+<img src="./images/docker_terminal_ip.png" width="550px">
+]
+
+---
+
+# MobaXtermで<br/>boot2dockerに接続
+## MobaXtermを起動
+
+.center[
+<img src="./images/mobaxterm.png" width="550px">
+]
+
+---
+
+# MobaXtermで<br/>boot2dockerに接続
+## SSH接続の設定
+
+.center[
+<img src="./images/mobaxterm_ssh.png" width="450px">
+]
+
+初回ログイン時はパスワードの入力が必要となる  
+Password: tcuser
+
+---
+
+# MobaXtermで<br/>boot2dockerに接続
+## boot2dockerに接続完了
+
+.center[
+<img src="./images/docker_logined.png" width="550px">
+]
 
 ---
 
 # SSH接続可能な<br/>コンテナ作成
 ## コンテナでopenssh-serverをインストール
+``` sh
+$ mkdir -p /c/Users/hytssk/docker/dockerfiles/mytensorflow
+$ cd /c/Users/hytssk/docker/dockerfiles/mytensorflow
+```
+``` Dockerfile
+# Dockerfile
+# C:\\Users\hytssk\docker\dockerfiles\mytensorflow\Dockerfilesを
+# 好みのエディタで作成
+From tensorflow/tensorflow
+MAINTAINER Hayato Sasaki <abc@mail.com>
+RUN apt-get update && \
+    apt-get install -y openssh-server python-qt4
+# 以下略(次ページ)
+```
+
+```sh
+$ ls
+Dockerfile
+$ docker build -t hytssk/tensorflow:ssh .
+```
+
+---
+
+# SSH接続可能な<br/>コンテナ作成
+## コンテナでopenssh-serverをインストール
+``` Dockerfile
+# Dockerfile
+From tensorflow/tensorflow
+MAINTAINER Hayato Sasaki <abc@mail.com>
+RUN apt-get update && \
+    apt-get install -y openssh-server python-qt4
+RUN adduser --disabled-password --gecos "" developer && \
+    echo "developer ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    echo "developer:developer" | chpasswd && \
+    cp -r /notebooks /home/developer && chown -R developer:developer /home/developer/
+RUN sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
+    sed -ri 's/: agg/: Qt4Agg/g' /usr/local/lib/python2.7/dist-packages/matplotlib/mpl-data/matplotlibrc && \
+    mkdir -p /var/run/sshd && \
+    chmod 755 /var/run/sshd
+ENV QT_X11_NO_MITSHM 1
+USER developer
+WORKDIR /home/developer
+CMD ["sudo", "/usr/sbin/sshd", "-D"]
+```
 
 ---
 
 # X11フォワーディング
+```sh
+# コンテナを起動
+$ docker run -d --name mytensorflow -p 10022:22 -p 8889:8888 -p 6007:6006 -v /c/Users/hytssk/docker/workspace:/notebooks/host hytssk/tensorflow:ssh
+```
+.center[
+作成したコンテナへのSSH接続設定
+<img src="./images/mobaxterm_x11_ssh.png" height="337px">  
+]
+
+```sh
+# 環境変数DISPLAYを設定(上記画像のExecute command欄に入力)
+export DISPLAY=`echo $SSH_CLIENT | cut -d' ' -f1`:0.0
+```
 
 ---
 
 # GUIアプリケーションの<br/>実行確認
+コンテナへのSSH接続確認後, 次のプログラムを実行
+``` python
+# plot_test.py
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(-3, 3, 0.1)
+y = np.sin(x)
+plt.plot(x, y)
+plt.show()
+```
+.left-column[
+<img src="./images/matplot_test.png" height="220px">  
+]
+.right-column.g10[
+matplotlibを使った<br/>GUIアプリケーションの実行を確認
+]
 
 ---
 
