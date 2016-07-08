@@ -1,0 +1,26 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>Presentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="./css/common.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/remark-latest.min.js" type="text/javascript"></script>
+    <script src="./js/mermaid.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./css/mermaid.css">
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    </script>
+    <script type="text/javascript">
+      var query = window.location.search.substring(1);
+      var slideshow = remark.create({
+        sourceUrl: "./markdown.md",
+        navigation: {click: false},
+        highlightStyle: 'github',
+        highlightLines: true,
+        scroll: true
+      });
+    </script>
+  </body>
+</html>
