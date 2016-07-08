@@ -107,7 +107,7 @@ class: center
 .left-column[
 ![コンテナ技術](./images/container_small.png)
 .center[
-*コンテナ技術*
+*コンテナ型仮想化*
 ]
 
 - 各コンテナがホストOSの<br/>カーネルを共有
@@ -116,7 +116,7 @@ class: center
 .right-column[
 ![ホスト技術](./images/host_small.png)
 .center[
-*ホスト技術*
+*ホスト型仮想化*
 ]
 - 仮想環境毎にゲストOSを<br/>起動
 - OS規模で管理するため<br/>オーバーヘッドが.blue[大きい]
@@ -191,7 +191,7 @@ class: center
     - [Docker Hub](https://hub.docker.com/)というイメージ共有サイトを利用する
 - イメージを作成する
     - コンテナを直接編集する方法
-    - Dockerfileを利用した方法
+    - **Dockerfileを利用した方法**
 
 ---
 # Dockerイメージ
@@ -204,7 +204,7 @@ NAME                  DESCRIPTION                          STARS     OFFICIAL   
 ruimashita/numpy      ubuntu 14.04 python 2.7 numpy        0                    [OK]
 halo9pan/cuda-numpy   Python numpy with CUDA support       0                    [OK]
 # 上記のvimagick/pythonをダウンロード
-$ docker pull halo9pan/cuda-numpy
+*$ docker pull halo9pan/cuda-numpy
 # ダウンロードしたイメージの確認
 $ docker images
 ```
