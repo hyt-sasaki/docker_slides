@@ -78,7 +78,7 @@ class: center
 - **基本的にLinuxもしくはMacで動作**
 
 .center[
-![tensorflow-logo](./images/tensorflow-logo.png)  
+![tensorflow-logo](./images/tensorflow-logo.png)
 .small[TensorFlow, the TensorFlow logo and any related marks are trademarks of Google Inc.]
 ]
 
@@ -215,7 +215,7 @@ $ docker images
 ---
 
 # Dockerイメージ
-## イメージの作成方法 - commitコマンド - 
+## イメージの作成方法 - commitコマンド -
 
 ```sh
 # コンテナの起動
@@ -230,7 +230,7 @@ $ exit
 $ docker ps
 CONTAINER ID   IMAGE    COMMAND   CREATED         STATUS         PORTS   NAMES
 70ba387360bf   ubuntu   "bash"    7 seconds ago   Up 6 seconds           ub
-*$ docker commit ub hytssk/python:2.7 
+*$ docker commit ub hytssk/python:2.7
 ```
 
 - *run*コマンドでコンテナを起動
@@ -287,7 +287,7 @@ Dockerfileを利用したイメージ生成のほうが一般的
 ```sh
 $ docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username : 
+Username :
 Password :
 Login Succeeded
 *$ docker push hytssk/python:2.7
@@ -366,12 +366,8 @@ class: center, middle
 ### 上記以外
 
 .large[&rarr; **Docker ToolBox**]
+(VirtualBoxなど, Linux以外のマシンでdockerを動かすために<br/>必要なソフトウェア群を自動でインストールしてくれる)
 
-.center[
-.border[
-今回はDocker ToolBoxをインストール
-]
-]
 
 ---
 
@@ -488,15 +484,15 @@ with tf.Session() as sess:
 ``` sh
 # 実行結果
 $ python test.py
-a = 
+a =
 [[1 2]
  [3 4]]
 
-b = 
+b =
 [[5 6]
  [7 8]]
 
-c = a + b = 
+c = a + b =
 [[ 6  8]
  [10 12]]
 ```
@@ -599,7 +595,7 @@ class: center, middle
 <img src="./images/mobaxterm_ssh.png" width="450px">
 ]
 
-初回ログイン時はパスワードの入力が必要となる  
+初回ログイン時はパスワードの入力が必要となる
 Password: tcuser
 
 ---
@@ -668,8 +664,8 @@ CMD ["sudo", "/usr/sbin/sshd", "-D"]
 $ docker run -d --name mytensorflow -p 10022:22 -p 8889:8888 -p 6007:6006 -v /c/Users/hytssk/docker/workspace:/notebooks/host hytssk/tensorflow:ssh
 ```
 .center[
-作成したコンテナへのSSH接続設定  
-<img src="./images/mobaxterm_x11_ssh.png" height="337px">  
+作成したコンテナへのSSH接続設定
+<img src="./images/mobaxterm_x11_ssh.png" height="337px">
 ]
 
 ```sh
@@ -692,7 +688,7 @@ plt.plot(x, y)
 plt.show()
 ```
 .left-column[
-<img src="./images/matplot_test.png" height="220px">  
+<img src="./images/matplot_test.png" height="220px">
 ]
 .right-column.g10[
 matplotlibを使った<br/>GUIアプリケーションの実行を確認
@@ -728,14 +724,14 @@ tensorboard起動後, http://192.168.99.100:6006 に接続
 # TensorBoardを利用した<br/>プログラムの可視化
 .left-column[
 <br/>
-<img src="./images/tensorboard_graph.png" height="240px">  
+<img src="./images/tensorboard_graph.png" height="240px">
 .center[
 *グラフ表示*
 ]
 ]
 .right-column[
 <br/>
-<img src="./images/tensorboard_scalar.png" height="240px">  
+<img src="./images/tensorboard_scalar.png" height="240px">
 .center[
 *スカラー値の記録*
 ]
