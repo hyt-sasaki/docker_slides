@@ -665,6 +665,7 @@ $ docker run -d --name mytensorflow -p 10022:22 -p 8889:8888 -p 6007:6006 -v /c/
 ```
 .center[
 作成したコンテナへのSSH接続設定
+
 <img src="./images/mobaxterm_x11_ssh.png" height="337px">
 ]
 
