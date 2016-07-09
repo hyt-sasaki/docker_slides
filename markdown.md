@@ -390,7 +390,7 @@ class: center, middle
 
 ## TensorFlowイメージのpull(ダウンロード)
 ```sh
-$ docker pull tensorflow/tensorflow
+*$ docker pull tensorflow/tensorflow
 ```
 
 ## ダウンロードしたイメージをコンテナ化
@@ -400,7 +400,7 @@ $ docker pull tensorflow/tensorflow
 $ mkdir -p /c/Users/hytssk/docker/workspace
 $ cd /c/Users/hytssk/docker/workspace
 # コンテナの起動
-$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -v "${PWD}":/notebooks/host tensorflow/tensorflow
+*$ docker run -d --name tensorflow -p 8888:8888 -p 6006:6006 -v "${PWD}":/notebooks/host tensorflow/tensorflow
 ```
 
 - *-d*オプション: コンテナで実行されるコマンドをデーモン化
