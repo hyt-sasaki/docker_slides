@@ -8,14 +8,16 @@ RUN apt-get update && \
 RUN adduser --disabled-password --gecos "" developer && \
     echo "developer ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     echo "developer:developer" | chpasswd && \
-    cp -r /notebooks /home/developer && chown -R developer:developer /home/developer/
+    cp -r /notebooks /home/developer && chown -R developer:developer /home/developer/notebooks && \
+    cp -r /root/.jupyter /home/developer && chown -R developer:developer /home/developer/.jupyter
 # edit /etc/ssh/sshd_config
 RUN sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
     sed -ri 's/: agg/: Qt4Agg/g' /usr/local/lib/python2.7/dist-packages/matplotlib/mpl-data/matplotlibrc && \
     mkdir -p /var/run/sshd && \
     chmod 755 /var/run/sshd
+RUN echo "#!/usr/bin/env bash\\n/usr/sbin/sshd\\n/run_jupyter.sh" > /run.sh && chmod +x /run.sh
 
 ENV QT_X11_NO_MITSHM 1
 USER developer
-WORKDIR /home/developer
-CMD ["sudo", "/usr/sbin/sshd", "-D"]
+WORKDIR /home/developer/notebooks
+CMD ["sudo", "/run.sh"]
