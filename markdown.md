@@ -26,7 +26,9 @@ class: center
 # 自己紹介
 - 濱上研究室M2 佐々木勇人
 - GitHubアカウント [@hyt-sasaki](https://github.com/hyt-sasaki)
-- 最近Qiita始めました [@hyt-sasaki](http://qiita.com/hyt-sasaki)
+- 最近Qiitaを始めました [@hyt-sasaki](http://qiita.com/hyt-sasaki)
+    - Qiitaにも今回の内容を投稿
+    - http://qiita.com/hyt-sasaki/items/cebdd953a5b5cfde00df
 - 研究内容
     - 全方位動画像を用いた自己位置推定
     - マルチモーダル深層学習
@@ -797,9 +799,7 @@ return cross_entropy
 
 - 説明に出てきたプログラムやDockerfileは<br/>[ここ](https://github.com/hyt-sasaki/docker_slides)からダウンロードできる
 
-- 詳しくは後ろのページ(_各種データ_のページ)を参照
-
-- 基本的にはdockerとMobaXtermのインストールを<br/>完了させてから_各種データ_のページのコマンドを<br/>実行するとTensorFlow等の環境が構築できる
+- [Qiitaの記事](http://qiita.com/hyt-sasaki/items/cebdd953a5b5cfde00d)でも、Docker + TensorFlow環境の構築方法を説明している
 
 ]
 
